@@ -1,35 +1,8 @@
 from math import floor
-
+import json
 statnames = ["hp", "attack", "defense", "spattack", "spdefense", "speed"]
-natures = {
-    "hardy": ("attack", "attack"),
-    "lonely": ("attack", "defense"),
-    "adamant": ("attack", "spattack"),
-    "brave": ("attack", "spdefense"),
-    "naughty": ("attack", "speed"),
-    "bold": ("defense", "attack"),
-    "docile": ("defense", "defense"),
-    "impish": ("defense", "spattack"),
-    "lax": ("defense", "spdefense"),
-    "relaxed": ("defense", "speed"),
-    "modest": ("spattack", "attack"),
-    "mild": ("spattack", "defense"),
-    "bashful": ("spattack", "spattack"),
-    "rash": ("spattack", "spdefense"),
-    "quiet": ("spattack", "speed"),
-    "calm": ("spdefense", "attack"),
-    "gentle": ("spdefense", "defense"),
-    "careful": ("spdefense", "spattack"),
-    "quirky": ("spdefense", "spdefense"),
-    "sassy": ("spdefense", "speed"),
-    "timid": ("speed", "attack"),
-    "hasty": ("speed", "defense"),
-    "jolly": ("speed", "spattack"),
-    "naive": ("speed", "spdefense"),
-    "serious": ("speed", "speed"),
-}
-
-
+with open("data/natures.json", "r") as file:
+    natures = json.load(file)
 def calc3():
     final = []
     pokemon = {
