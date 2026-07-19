@@ -6,7 +6,7 @@ for i in range(1, 1000):
         try:
             response = requests.get(f"https://pokeapi.co/api/v2/move/{i}/")
             break
-        except Exception as e:
+        except Exception:
             print("pass")
             pass
 
