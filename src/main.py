@@ -11,7 +11,9 @@ def main():
                 search.moves(str(input().lower()))
             case "stat" | "3":
                 search.search_min_stat()
-            case "stop" | "4":
+            case "multi" | "4":
+                search.search_multiple()
+            case "stop" | "5":
                 break
 if __name__ == "__main__":
     main()
