@@ -28,54 +28,7 @@ def moves(name):
         print(ALL_MOVES[move])
 
 
-
-def search_min_stat():
-    valid = ["hp", "attack", "defense", "special-attack","special-defense","speed","spattack","spdefense","sp-attack","sp-defense","atk","def","sp-atk","spatk","sp-def","spdef","spe"]
-    while True:
-        print("Please choose a stat")
-        choice = input()
-        choice = choice.replace(" ","-")
-        choice = choice.replace(".","")
-        if choice in valid:
-            break
-    match choice:
-        case "atk":
-            choice = "attack"
-        case "def":
-            choice = "defense"
-        case "spattack":
-            choice = "special-attack"
-        case "spatk":
-            choice = "special-attack"
-        case "sp-atk":
-            choice = "special-attack"
-        case "spdefense":
-            choice = "special-defense"
-        case "spdef":
-            choice = "special-defense"
-        case "sp-def":
-            choice = "special-defense"
-        case "spe":
-            choice = "speed"
-    stat = choice
-    while True:
-        print("Choose the minimum value")
-        choice = input()
-        try:
-            choice = int(choice)
-            break
-        except Exception:
-            pass
-    results = statsearch.search_min(ALL_POKEMON, stat, choice)
-    if len(results) > 0:
-        for i in results:
-            print(f"> {i}")
-    else:
-        print("No Pokémon matched the query")
-
-
-
-def search_multiple(queue):
+def search_stats(queue):
     validpokemon = ALL_POKEMON
     for q in queue:
 

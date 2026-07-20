@@ -1,6 +1,6 @@
 import PySide6.QtWidgets as qt
 import load
-from search import search_multiple
+import search
 ALL_POKEMON,ALL_MOVES,ALL_ABILITIES = load.load_data()
 
 
@@ -25,6 +25,10 @@ class SearchTab(qt.QWidget):
             stat.addWidget(mode_choice)
             statsInputs.addRow(stat_name,stat)
         left.addLayout(statsInputs)
+
+        left.addWidget(qt.QLabel("Moves"))
+        self.moves = qt.QListWidget()
+        left.addWidget(self.moves)
 
         self.searchbutton = qt.QPushButton("Search")
         left.addWidget(self.searchbutton)
@@ -53,7 +57,7 @@ class SearchTab(qt.QWidget):
             except Exception:
                 continue
         self.results_list.clear()
-        results = search_multiple(queue)
+        results = search.search_stats(queue)
         for i in results:
             self.results_list.addItem(i)
 
