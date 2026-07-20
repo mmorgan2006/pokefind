@@ -1,7 +1,8 @@
 import pprint
 import copy
-from main import ALL_POKEMON,ALL_MOVES
 import statsearch
+import load
+ALL_POKEMON,ALL_MOVES,ALL_ABILITIES = load.load_data()
 def search(name):
     pprint.pprint(ALL_POKEMON[name])
 
@@ -74,59 +75,22 @@ def search_min_stat():
 
 
 
-def search_multiple():
+def search_multiple(queue):
     validpokemon = ALL_POKEMON
-    queue = dict()
-    valid = ["hp", "attack", "defense", "special-attack","special-defense","speed","spattack","spdefense","sp-attack","sp-defense","atk","def","sp-atk","spatk","sp-def","spdef","spe"]
-    while True:
-        while True:
-            print("Please choose a stat")
-            choice = input()
-            choice = choice.replace(" ","-")
-            choice = choice.replace(".","")
-            if choice in valid:
-                break
-            elif choice == "end" or choice == "0":
-                break
-        match choice:
-            case "atk":
-                choice = "attack"
-            case "def":
-                choice = "defense"
-            case "spattack":
-                choice = "special-attack"
-            case "spatk":
-                choice = "special-attack"
-            case "sp-atk":
-                choice = "special-attack"
-            case "spdefense":
-                choice = "special-defense"
-            case "spdef":
-                choice = "special-defense"
-            case "sp-def":
-                choice = "special-defense"
-            case "spe":
-                choice = "speed"
-        stat = choice
-        while True:
-            if choice == "end" or choice == "0":
-                break
-            print("Choose the minimum value")
-            choice = input()
-            try:
-                choice = int(choice)
-                if choice > 0:
-                    queue[stat] = choice
-                choice = -1
-                break
-            except Exception:
-                pass
-        if choice == "end" or choice == "0":
-            break
     for q in queue:
 
         newvalidpokemon = copy.deepcopy(validpokemon)
-        results = statsearch.search_min(validpokemon, q, queue[q])
+
+        mode = queue[q]["mode"]
+        match mode:
+            case "minimum":
+                results = statsearch.search_min(validpokemon,q,queue[q]["value"])
+            case "exact":
+                results = statsearch.search_exact(validpokemon,q,queue[q]["value"])
+            case "maximum":
+                results = statsearch.search_max(validpokemon,q,queue[q]["value"])
+            case _:
+                results = []
         for i in validpokemon:
             for f in validpokemon[i]["forms"]:
                 if f.title() not in results:
@@ -135,6 +99,11 @@ def search_multiple():
                 newvalidpokemon.pop(i)
         validpokemon = newvalidpokemon
     results = []
-    for i in validpokemon:
-        for f in validpokemon[i]["forms"]:
-            print(f"> {f.title()}")
+    if len(validpokemon) > 0:
+        for i in validpokemon:
+            for f in validpokemon[i]["forms"]:
+                print(f"> {f.title()}")
+                results.append(f"> {f.title()}")
+    else:
+        print("No Pokémon matched the query")
+    return results
