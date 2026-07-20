@@ -8,7 +8,7 @@ def search(name):
 
 def moves(name):
     forms = list()
-    blocked = ["-mega", "-g-max", "-terastal", "-stellar"]
+    blocked = ["-mega", "-g-max", "-terastal", "-stellar", "-eternamax"]
     for form in ALL_POKEMON[name]["forms"]:
         if all(x not in form.lower() for x in blocked):
             forms.append(form)

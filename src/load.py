@@ -5,4 +5,6 @@ def load_data():
         ALL_POKEMON = json.load(file)
     with open("data/allmoves.json", "r") as file:
         ALL_MOVES = json.load(file)
-    return ALL_POKEMON,ALL_MOVES
+    with open("data/allabilities.json", "r") as file:
+        ALL_ABILITIES = json.load(file)
+    return ALL_POKEMON,ALL_MOVES,ALL_ABILITIES

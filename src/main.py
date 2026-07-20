@@ -1,6 +1,6 @@
 import load
 import search
-ALL_POKEMON,ALL_MOVES = load.load_data()
+ALL_POKEMON,ALL_MOVES,ALL_ABILITIES = load.load_data()
 def main():
     while True:
         response = str(input().lower())
