@@ -1,3 +1,5 @@
+import copy
+
 from PySide6.QtCore import Qt
 import PySide6.QtWidgets as qt
 import load
@@ -72,8 +74,10 @@ class SearchTab(qt.QWidget):
 
 
     def Search(self):
-
-        validpokemon = search.search_ability(self.ability.text(),ALL_POKEMON)
+        if self.ability.text() in ABILITY_NAMES:
+            validpokemon = search.search_ability(self.ability.text(),ALL_POKEMON)
+        else:
+            validpokemon = copy.deepcopy(ALL_POKEMON)
         queue = dict()
         for i in self.stats:
             try:
