@@ -28,8 +28,7 @@ def moves(name):
         print(ALL_MOVES[move])
 
 
-def search_stats(queue):
-    validpokemon = ALL_POKEMON
+def search_stats(queue,validpokemon):
     for q in queue:
 
         newvalidpokemon = copy.deepcopy(validpokemon)
@@ -55,8 +54,28 @@ def search_stats(queue):
     if len(validpokemon) > 0:
         for i in validpokemon:
             for f in validpokemon[i]["forms"]:
-                print(f"> {f.title()}")
                 results.append(f"> {f.title()}")
     else:
         print("No Pokémon matched the query")
     return results
+
+
+def search_ability(ability,validpokemon):
+    newvalidpokemon = copy.deepcopy(validpokemon)
+    ability = ability.replace(" ","-")
+    ability = ability.lower()
+    results = []
+    print(f"{ability}")
+    for i in validpokemon:
+        for form in validpokemon[i]["forms"]:
+            for current_ability in validpokemon[i]["forms"][form]["abilities"]:
+                if ability == current_ability["name"]:
+                    print(form)
+                    results.append(form)
+    for i in validpokemon:
+        for f in validpokemon[i]["forms"]:
+            if f not in results:
+                newvalidpokemon[i]["forms"].pop(f)
+        if len(newvalidpokemon[i]["forms"]) == 0:
+            newvalidpokemon.pop(i)
+    return newvalidpokemon
