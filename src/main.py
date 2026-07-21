@@ -20,6 +20,7 @@ class SearchTab(qt.QWidget):
         left = qt.QVBoxLayout()
         right = qt.QVBoxLayout()
 
+        # STATS
         self.stats = dict()
         statsInputs = qt.QFormLayout()
         for stat_name in ["HP", "Attack", "Defense", "Special-Attack", "Special-Defense", "Speed"]:
@@ -43,6 +44,7 @@ class SearchTab(qt.QWidget):
         self.game.addItems(["Champions","Scarlet-Violet"])
         details.addWidget(self.game)
 
+        # ABILITY
         self.ability = qt.QLineEdit()
         self.ability.setPlaceholderText("Ability")
         details.addWidget(self.ability)
@@ -50,7 +52,7 @@ class SearchTab(qt.QWidget):
         self.ability_completer.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.ability.setCompleter(self.ability_completer)
 
-
+        # TYPES
         self.type1 = qt.QLineEdit()
         self.type1.setPlaceholderText("Type 1")
         self.type2 = qt.QLineEdit()
@@ -61,10 +63,18 @@ class SearchTab(qt.QWidget):
         self.type2.setCompleter(self.type_completer)
         details.addWidget(self.type1)
         details.addWidget(self.type2)
-
         left.addLayout(details)
-        left.addWidget(qt.QLabel("Moves"))
+
+        # MOVES
+        details = qt.QHBoxLayout()
+        text = qt.QLabel("Moves")
+        text.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        details.addWidget(text)
+        details.addWidget(qt.QPushButton("+ Move"))
+        details.addWidget(qt.QPushButton("Clear Moves"))
+        left.addLayout(details)
         self.moves = qt.QListWidget()
+
         left.addWidget(self.moves)
 
         self.searchbutton = qt.QPushButton("Search")
