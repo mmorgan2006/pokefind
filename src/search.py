@@ -1,8 +1,7 @@
 import pprint
 import copy
 import statsearch
-import load
-ALL_POKEMON,ALL_MOVES,ALL_ABILITIES = load.load_data()
+from load import ALL_MOVES,ALL_POKEMON
 def search(name):
     pprint.pprint(ALL_POKEMON[name])
 

@@ -24,3 +24,13 @@ def load_data():
         ALL_ABILITIES = json.load(file)
 
     return ALL_POKEMON, ALL_MOVES, ALL_ABILITIES
+
+ALL_POKEMON,ALL_MOVES,ALL_ABILITIES = load_data()
+ABILITY_NAMES = {data["name"] for data in ALL_ABILITIES.values()}
+MOVE_NAMES = {data["name"] for data in ALL_MOVES.values()}
+
+TYPELIST = [
+    "Normal", "Fire", "Water", "Grass", "Electric", "Ice",
+    "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug",
+    "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy"
+]
