@@ -76,6 +76,3 @@ def pokemon():
         json.dump(ALL_MOVES, file, indent=4)
     with open("data/allabilities.json", "w") as file:
         json.dump(ALL_ABILITIES, file, indent=4)
-
-if __name__ == "__allpokemon__":
-    pokemon()

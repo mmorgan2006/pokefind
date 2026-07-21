@@ -6,25 +6,25 @@ def search(name):
     pprint.pprint(ALL_POKEMON[name])
 
 
-def moves(name):
-    forms = list()
-    blocked = ["-mega", "-g-max", "-terastal", "-stellar", "-eternamax"]
-    for form in ALL_POKEMON[name]["forms"]:
-        if all(x not in form.lower() for x in blocked):
-            forms.append(form)
-    if len(forms) > 1:
-        while True:
-            print("Please choose a form")
-            for form_name in forms:
-                print(f"> {form_name.title()}")
-            choice = input()
-            choice = choice.replace(" ","-")
-            if choice in forms:
-                break
-    else:
-        choice = next(iter(ALL_POKEMON[name]["forms"]))
-    for move in ALL_POKEMON[name]["forms"][choice]["moves"]["scarlet-violet"]:
-        print(ALL_MOVES[move])
+def search_move(move,validpokemon,game):
+    newvalidpokemon = copy.deepcopy(validpokemon)
+    results = set()
+    game = game.lower()
+    move = move.replace(" ","-").lower()
+    for i in validpokemon:
+        for f in validpokemon[i]["forms"]:
+            if validpokemon[i]["forms"][f]["moves"].get(game) is not None:
+                if move in validpokemon[i]["forms"][f]["moves"][game]:
+                    results.add(f)
+    for i in validpokemon:
+        for f in validpokemon[i]["forms"]:
+            if f not in results:
+                newvalidpokemon[i]["forms"].pop(f)
+        if len(newvalidpokemon[i]["forms"]) == 0:
+            newvalidpokemon.pop(i)
+    return newvalidpokemon
+
+
 
 
 def search_stats(queue,validpokemon):
@@ -64,12 +64,10 @@ def search_ability(ability,validpokemon):
     ability = ability.replace(" ","-")
     ability = ability.lower()
     results = []
-    print(f"{ability}")
     for i in validpokemon:
         for form in validpokemon[i]["forms"]:
             for current_ability in validpokemon[i]["forms"][form]["abilities"]:
                 if ability == current_ability["name"]:
-                    print(form)
                     results.append(form)
     for i in validpokemon:
         for f in validpokemon[i]["forms"]:
