@@ -1,11 +1,17 @@
-import copy
-
 from PySide6.QtCore import Qt
 import PySide6.QtWidgets as qt
 import load
 import search
+import copy
+
 ALL_POKEMON,ALL_MOVES,ALL_ABILITIES = load.load_data()
 ABILITY_NAMES = []
+TYPELIST = [
+    "Normal", "Fire", "Water", "Grass", "Electric", "Ice",
+    "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug",
+    "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy"
+]
+
 for i in ALL_ABILITIES:
     ABILITY_NAMES.append(ALL_ABILITIES[i]["name"])
 class SearchTab(qt.QWidget):
@@ -49,6 +55,10 @@ class SearchTab(qt.QWidget):
         self.type1.setPlaceholderText("Type 1")
         self.type2 = qt.QLineEdit()
         self.type2.setPlaceholderText("Type 2")
+        self.type_completer = qt.QCompleter(TYPELIST)
+        self.type_completer.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+        self.type1.setCompleter(self.type_completer)
+        self.type2.setCompleter(self.type_completer)
         details.addWidget(self.type1)
         details.addWidget(self.type2)
 
@@ -78,6 +88,12 @@ class SearchTab(qt.QWidget):
             validpokemon = search.search_ability(self.ability.text(),ALL_POKEMON)
         else:
             validpokemon = copy.deepcopy(ALL_POKEMON)
+            self.ability.setText("")
+
+        if self.type1.text() in TYPELIST:
+            validpokemon = search.search_type(self.type1.text().lower(),validpokemon)
+        if self.type2.text() in TYPELIST:
+            validpokemon = search.search_type(self.type2.text().lower(),validpokemon)
         queue = dict()
         for i in self.stats:
             try:

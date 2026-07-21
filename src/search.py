@@ -79,3 +79,19 @@ def search_ability(ability,validpokemon):
         if len(newvalidpokemon[i]["forms"]) == 0:
             newvalidpokemon.pop(i)
     return newvalidpokemon
+
+
+def search_type(type,validpokemon):
+    results = []
+    newvalidpokemon = copy.deepcopy(validpokemon)
+    for i in validpokemon:
+        for form in validpokemon[i]["forms"]:
+            if type in validpokemon[i]["forms"][form]["types"]:
+                results.append(form)
+    for i in validpokemon:
+        for f in validpokemon[i]["forms"]:
+            if f not in results:
+                newvalidpokemon[i]["forms"].pop(f)
+        if len(newvalidpokemon[i]["forms"]) == 0:
+            newvalidpokemon.pop(i)
+    return newvalidpokemon
