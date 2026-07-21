@@ -5,8 +5,8 @@ import search
 import copy
 
 ALL_POKEMON,ALL_MOVES,ALL_ABILITIES = load.load_data()
-ABILITY_NAMES = []
-MOVE_NAMES = []
+ABILITY_NAMES = set()
+MOVE_NAMES = set()
 TYPELIST = [
     "Normal", "Fire", "Water", "Grass", "Electric", "Ice",
     "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug",
@@ -14,9 +14,9 @@ TYPELIST = [
 ]
 
 for i in ALL_ABILITIES:
-    ABILITY_NAMES.append(ALL_ABILITIES[i]["name"])
+    ABILITY_NAMES.add(ALL_ABILITIES[i]["name"])
 for i in ALL_MOVES:
-    MOVE_NAMES.append(ALL_MOVES[i]["name"])
+    MOVE_NAMES.add(ALL_MOVES[i]["name"])
 class SearchTab(qt.QWidget):
     def __init__(self):
         super().__init__()
