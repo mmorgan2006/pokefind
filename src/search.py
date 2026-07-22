@@ -53,7 +53,7 @@ def search_stats(queue,validpokemon):
     if len(validpokemon) > 0:
         for i in validpokemon:
             for f in validpokemon[i]["forms"]:
-                results.append(f"> {f.title()}")
+                results.append(f.title())
     else:
         print("No Pokémon matched the query")
     return results
