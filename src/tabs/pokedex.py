@@ -35,20 +35,26 @@ class PokedexTab(qt.QWidget):
                 self.current_pokedex_widget.deleteLater()
             except Exception:
                 pass
-        new = Pokemon(name)
+        key = name.lower().replace(" ","-")
+        forms = list(dict.keys(ALL_POKEMON[key]["forms"]))
+        if len(forms) > 1:
+            new = qt.QTabWidget()
+            for form in forms:
+                new.addTab(Pokemon(key,form), form.title())
+        else:
+            new = Pokemon(key,key)
         self.full_layout.addWidget(new)
         self.current_pokedex_widget = new
 
 
 class Pokemon(qt.QWidget):
-    def __init__(self,name):
+    def __init__(self,species,form):
         super().__init__()
-        key = name.lower().replace(" ","-")
-        form = list(dict.keys(ALL_POKEMON[key]["forms"]))
-        stats = ALL_POKEMON[key]["forms"][form[0]]["stats"]
+        species = species.lower().replace(" ","-")
+        stats = ALL_POKEMON[species]["forms"][form]["stats"]
 
         q = qt.QVBoxLayout()
-        q.addWidget(qt.QLabel(name))
+        q.addWidget(qt.QLabel(form.title()))
         for stat in stats:
             q.addWidget(qt.QLabel(f"{stat.title()}: {stats[stat]}"))
 
