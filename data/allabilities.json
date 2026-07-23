@@ -100,7 +100,6 @@
             "avalugg",
             "avalugg-hisui",
             "togedemaru",
-            "togedemaru-totem",
             "cosmoem",
             "nacli",
             "naclstack",
@@ -191,21 +190,7 @@
         "name": "Static",
         "pokemon": [
             "pikachu",
-            "pikachu-rock-star",
-            "pikachu-belle",
-            "pikachu-pop-star",
-            "pikachu-phd",
-            "pikachu-libre",
-            "pikachu-cosplay",
-            "pikachu-original-cap",
-            "pikachu-hoenn-cap",
-            "pikachu-sinnoh-cap",
-            "pikachu-unova-cap",
-            "pikachu-kalos-cap",
-            "pikachu-alola-cap",
-            "pikachu-partner-cap",
             "pikachu-starter",
-            "pikachu-world-cap",
             "raichu",
             "voltorb",
             "voltorb-hisui",
@@ -274,7 +259,6 @@
             "volcanion",
             "dewpider",
             "araquanid",
-            "araquanid-totem",
             "dracovish",
             "arctovish",
             "clodsire",
@@ -306,7 +290,6 @@
             "mamoswine",
             "salandit",
             "salazzle",
-            "salazzle-totem",
             "bounsweet",
             "steenee",
             "dondozo"
@@ -428,7 +411,6 @@
             "vivillon",
             "cutiefly",
             "ribombee",
-            "ribombee-totem",
             "snom",
             "frosmoth"
         ]
@@ -606,8 +588,7 @@
             "cryogonal",
             "hydreigon",
             "delphox-mega",
-            "vikavolt",
-            "vikavolt-totem"
+            "vikavolt"
         ]
     },
     "effect-spore": {
@@ -701,26 +682,11 @@
         "name": "Lightning Rod",
         "pokemon": [
             "pikachu",
-            "pikachu-rock-star",
-            "pikachu-belle",
-            "pikachu-pop-star",
-            "pikachu-phd",
-            "pikachu-libre",
-            "pikachu-cosplay",
-            "pikachu-original-cap",
-            "pikachu-hoenn-cap",
-            "pikachu-sinnoh-cap",
-            "pikachu-unova-cap",
-            "pikachu-kalos-cap",
-            "pikachu-alola-cap",
-            "pikachu-partner-cap",
             "pikachu-starter",
-            "pikachu-world-cap",
             "raichu",
             "cubone",
             "marowak",
             "marowak-alola",
-            "marowak-totem",
             "rhyhorn",
             "rhydon",
             "goldeen",
@@ -734,7 +700,6 @@
             "blitzle",
             "zebstrika",
             "togedemaru",
-            "togedemaru-totem",
             "pincurchin"
         ]
     },
@@ -1018,8 +983,7 @@
             "bouffalant",
             "jangmo-o",
             "hakamo-o",
-            "kommo-o",
-            "kommo-o-totem"
+            "kommo-o"
         ]
     },
     "rain-dish": {
@@ -1096,7 +1060,6 @@
             "venusaur-mega",
             "rattata-alola",
             "raticate-alola",
-            "raticate-totem-alola",
             "seel",
             "dewgong",
             "snorlax",
@@ -1326,7 +1289,6 @@
             "rattata-alola",
             "raticate",
             "raticate-alola",
-            "raticate-totem-alola",
             "nidoran-f",
             "nidorina",
             "nidoran-m",
@@ -1648,7 +1610,6 @@
             "cubone",
             "marowak",
             "marowak-alola",
-            "marowak-totem",
             "rhyhorn",
             "rhydon",
             "aerodactyl",
@@ -1804,7 +1765,7 @@
             "fraxure",
             "haxorus",
             "litleo",
-            "pyroar-male"
+            "pyroar"
         ]
     },
     "steadfast": {
@@ -1852,7 +1813,6 @@
         "pokemon": [
             "rattata-alola",
             "raticate-alola",
-            "raticate-totem-alola",
             "bellsprout",
             "weepinbell",
             "victreebel",
@@ -2018,7 +1978,6 @@
             "dragalge",
             "yungoos",
             "gumshoos",
-            "gumshoos-totem",
             "basculegion-male",
             "basculegion-female",
             "glimmora-mega"
@@ -2213,12 +2172,10 @@
             "lilligant-hisui",
             "fomantis",
             "lurantis",
-            "lurantis-totem",
             "bounsweet",
             "steenee",
             "tsareena",
-            "zarude",
-            "zarude-dada"
+            "zarude"
         ]
     },
     "klutz": {
@@ -2474,8 +2431,7 @@
             "teddiursa",
             "combee",
             "cutiefly",
-            "ribombee",
-            "ribombee-totem"
+            "ribombee"
         ]
     },
     "frisk": {
@@ -2629,7 +2585,6 @@
             "malamar-mega",
             "fomantis",
             "lurantis",
-            "lurantis-totem",
             "enamorus-incarnate"
         ]
     },
@@ -2655,7 +2610,7 @@
             "fraxure",
             "haxorus",
             "litleo",
-            "pyroar-male",
+            "pyroar",
             "bewear",
             "rookidee",
             "corvisquire",
@@ -2698,7 +2653,6 @@
         "pokemon": [
             "gengar",
             "marowak-alola",
-            "marowak-totem",
             "corsola-galar",
             "shuppet",
             "banette",
@@ -2901,7 +2855,6 @@
             "jangmo-o",
             "hakamo-o",
             "kommo-o",
-            "kommo-o-totem",
             "enamorus-therian",
             "varoom",
             "revavroom"
@@ -3087,7 +3040,7 @@
             "scraggy",
             "scrafty",
             "litleo",
-            "pyroar-male",
+            "pyroar",
             "quaxly",
             "quaxwell",
             "quaquaval"
@@ -3227,8 +3180,7 @@
         "pokemon": [
             "ferroseed",
             "ferrothorn",
-            "togedemaru",
-            "togedemaru-totem"
+            "togedemaru"
         ]
     },
     "zen-mode": {
@@ -3335,7 +3287,6 @@
             "jangmo-o",
             "hakamo-o",
             "kommo-o",
-            "kommo-o-totem",
             "wooloo",
             "dubwool",
             "applin",
@@ -3371,7 +3322,6 @@
             "avalugg-hisui",
             "yungoos",
             "gumshoos",
-            "gumshoos-totem",
             "bruxish",
             "chewtle",
             "drednaw",
@@ -3394,7 +3344,6 @@
             "slurpuff",
             "cutiefly",
             "ribombee",
-            "ribombee-totem",
             "bounsweet",
             "steenee",
             "tsareena",
@@ -3564,20 +3513,8 @@
     "shields-down": {
         "name": "Shields Down",
         "pokemon": [
-            "minior-red-meteor",
-            "minior-orange-meteor",
-            "minior-yellow-meteor",
-            "minior-green-meteor",
-            "minior-blue-meteor",
-            "minior-indigo-meteor",
-            "minior-violet-meteor",
-            "minior-red",
-            "minior-orange",
-            "minior-yellow",
-            "minior-green",
-            "minior-blue",
-            "minior-indigo",
-            "minior-violet"
+            "minior-meteor",
+            "minior-core"
         ]
     },
     "stakeout": {
@@ -3585,7 +3522,6 @@
         "pokemon": [
             "yungoos",
             "gumshoos",
-            "gumshoos-totem",
             "nickit",
             "thievul",
             "tarountula",
@@ -3598,8 +3534,7 @@
         "name": "Water Bubble",
         "pokemon": [
             "dewpider",
-            "araquanid",
-            "araquanid-totem"
+            "araquanid"
         ]
     },
     "steelworker": {
@@ -3674,24 +3609,18 @@
     "disguise": {
         "name": "Disguise",
         "pokemon": [
-            "mimikyu-disguised",
-            "mimikyu-busted",
-            "mimikyu-totem-disguised",
-            "mimikyu-totem-busted"
+            "mimikyu-disguised"
         ]
     },
     "battle-bond": {
         "name": "Battle Bond",
         "pokemon": [
-            "greninja-battle-bond",
             "greninja-ash"
         ]
     },
     "power-construct": {
         "name": "Power Construct",
         "pokemon": [
-            "zygarde-10-power-construct",
-            "zygarde-50-power-construct",
             "zygarde-complete"
         ]
     },
@@ -3700,7 +3629,6 @@
         "pokemon": [
             "salandit",
             "salazzle",
-            "salazzle-totem",
             "glimmet",
             "glimmora"
         ]
@@ -3759,8 +3687,7 @@
     "soul-heart": {
         "name": "Soul-Heart",
         "pokemon": [
-            "magearna",
-            "magearna-original"
+            "magearna"
         ]
     },
     "tangling-hair": {
@@ -3914,9 +3841,7 @@
     "gulp-missile": {
         "name": "Gulp Missile",
         "pokemon": [
-            "cramorant",
-            "cramorant-gulping",
-            "cramorant-gorging"
+            "cramorant"
         ]
     },
     "stalwart": {
@@ -4246,21 +4171,13 @@
     "orichalcum-pulse": {
         "name": "Orichalcum Pulse",
         "pokemon": [
-            "koraidon",
-            "koraidon-limited-build",
-            "koraidon-sprinting-build",
-            "koraidon-swimming-build",
-            "koraidon-gliding-build"
+            "koraidon"
         ]
     },
     "hadron-engine": {
         "name": "Hadron Engine",
         "pokemon": [
-            "miraidon",
-            "miraidon-low-power-mode",
-            "miraidon-drive-mode",
-            "miraidon-aquatic-mode",
-            "miraidon-glide-mode"
+            "miraidon"
         ]
     },
     "opportunist": {

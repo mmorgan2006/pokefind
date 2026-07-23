@@ -3,13 +3,11 @@ import sys
 import os
 
 def resource_path(relative_path):
-    # If running as a PyInstaller EXE
     if hasattr(sys, '_MEIPASS'):
         base_path = getattr(sys, "_MEIPASS", os.path.abspath("."))
         return os.path.join(base_path, relative_path)
-
-    # If running normally (IDE, terminal)
     return os.path.join(os.path.abspath("."), relative_path)
+
 
 def load_data():
     pokemon_path = resource_path("data/allpokemon.json")
