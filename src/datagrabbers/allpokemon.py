@@ -9,7 +9,7 @@ def pokemon():
         ALL_ABILITIES = json.load(file)
 
     ALLDATA = dict()
-
+    blocked = ["-gmax","-cap","-rock-star","-belle","-pop-star","-phd","-libre","-cosplay","-totem","-power-construct","-battle-bond","minior","-busted","-original","-gulping","-gorging","-dada","-build","-mode"]
     for i in range(1, 1026):
         url = f"https://pokeapi.co/api/v2/pokemon-species/{i}/"
         response = requests.get(url)
@@ -19,10 +19,19 @@ def pokemon():
             pokemon["forms"] = dict()
             for v in speciesdata["varieties"]:
                 vname = v["pokemon"]["name"]
-                if "-gmax" in vname:
-                    continue
+                if any(str(item).lower() in vname.lower() for item in blocked):
+                    if vname not in ["minior-red","minior-red-meteor"]:
+                        continue
                 vurl = v["pokemon"]["url"]
                 response = requests.get(vurl)
+                if vname == "minior-red":
+                    vname = "minior-core"
+                if vname == "minior-red-meteor":
+                    vname = "minior-meteor"
+                if vname == "pyroar-male":
+                    vname = "pyroar"
+                if vname == "mimikyu-disguised":
+                    vname = "mimikyu"
                 if response.status_code == 200:
                     vdata = response.json()
                     print(vname)
