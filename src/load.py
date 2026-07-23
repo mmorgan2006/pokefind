@@ -8,6 +8,7 @@ def resource_path(relative_path):
         return os.path.join(base_path, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
 
+
 def load_data():
     pokemon_path = resource_path("data/allpokemon.json")
     moves_path = resource_path("data/allmoves.json")
