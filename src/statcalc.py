@@ -3,73 +3,125 @@ import json
 statnames = ["hp", "attack", "defense", "spattack", "spdefense", "speed"]
 with open("data/natures.json", "r") as file:
     natures = json.load(file)
-def calc3():
+def calc3(pokemon):
     final = []
     pokemon = {
-        "base": [108, 130, 95, 80, 85, 102],
-        "ivs": [24, 12, 30, 16, 23, 5],
-        "evs": [74, 190, 91, 48, 84, 23],
+        "nature": "quirky",
         "level": 78,
-        "nature": "adamant",
+        "stats":{
+            "hp": {
+                "base": 108,
+                "iv": 24,
+                "ev": 74
+            },
+            "attack": {
+                "base": 130,
+                "iv": 12,
+                "ev": 190
+            },
+            "defense": {
+                "base": 95,
+                "iv": 30,
+                "ev": 91
+            },
+            "special-attack": {
+                "base": 80,
+                "iv": 16,
+                "ev": 48
+            },
+            "special-defense": {
+                "base": 85,
+                "iv": 23,
+                "ev": 84
+            },
+            "speed": {
+                "base": 102,
+                "iv": 5,
+                "ev": 23
+            }
+        }
     }
-    final.append(
-        floor(
-            (2 * pokemon["base"][0] + pokemon["ivs"][0] + floor(pokemon["evs"][0] / 4))
-            * pokemon["level"]
-            / 100
-        )
-        + pokemon["level"]
-        + 10
-    )
+    alignment_stats = natures[pokemon["nature"]]
 
-    for i in range(1, 6):
-        alignment = natures[pokemon["nature"]]
-        if alignment[0] == statnames[i]:
-            alignment = 1.1
-        elif alignment[1] == statnames[i]:
-            alignment = 0.9
+    for stat in pokemon["stats"]:
+        if stat == "hp":
+            final.append(
+                floor(
+                    (2 * pokemon["stats"][stat]["base"] + pokemon["stats"][stat]["iv"] + floor(pokemon["stats"][stat]["ev"] / 4))
+                    * pokemon["level"]
+                    / 100
+                )
+                + pokemon["level"]
+                + 10
+            )
         else:
             alignment = 1
-        final.append(
-            floor(
-                (
+            if alignment_stats[0] == stat:
+                alignment += .1
+            if alignment_stats[1] == stat:
+                alignment -= .1
+            final.append(
                     floor(
                         (
-                            2 * pokemon["base"][i]
-                            + pokemon["ivs"][i]
-                            + floor(pokemon["evs"][i] / 4)
+                            floor(
+                                (
+                                    2 * pokemon["stats"][stat]["base"]
+                                    + pokemon["stats"][stat]["iv"]
+                                    + floor(pokemon["stats"][stat]["ev"] / 4)
+                                )
+                                * pokemon["level"]
+                                / 100
+                            )
+                            + 5
                         )
-                        * pokemon["level"]
-                        / 100
+                        * alignment
                     )
-                    + 5
                 )
-                * alignment
-            )
-        )
     print(final)
 
 
-def calcchamp():
-    final = []
+def calcchamp(pokemon):
     pokemon = {
-        "base": [95, 65, 65, 110, 130, 60],
-        "points": [2, 0, 0, 32, 0, 32],
         "nature": "modest",
+        "stats":{
+            "hp": {
+                "base": 95,
+                "points": 2,
+            },
+            "attack": {
+                "base": 65,
+                "points": 0,
+            },
+            "defense": {
+                "base": 65,
+                "points": 0,
+            },
+            "special-attack": {
+                "base": 110,
+                "points": 32,
+            },
+            "special-defense": {
+                "base": 130,
+                "points": 0,
+            },
+            "speed": {
+                "base": 60,
+                "points": 32,
+            }
+        }
     }
-    final.append(pokemon["base"][0] + pokemon["points"][0] + 75)
-    for i in range(1, 6):
-        alignment = natures[pokemon["nature"]]
-        if alignment[0] == statnames[i]:
-            alignment = 1.1
-        elif alignment[1] == statnames[i]:
-            alignment = 0.9
+    final = []
+    alignment_stats = natures[pokemon["nature"]]
+    for stat in pokemon["stats"]:
+        if stat == "hp":
+            final.append(pokemon["stats"]["hp"]["base"] + pokemon["stats"]["hp"]["points"] + 75)
         else:
             alignment = 1
-        final.append(
-            floor((pokemon["base"][i] + pokemon["points"][i] + 20) * alignment)
-        )
+            if alignment_stats[0] == stat:
+                alignment += .1
+            if alignment_stats[1] == stat:
+                alignment -= .1
+            final.append(
+                floor((pokemon["stats"][stat]["base"] + pokemon["stats"][stat]["points"] + 20) * alignment)
+            )
     print(final)
-
-
-calc3()
