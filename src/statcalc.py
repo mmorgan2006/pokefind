@@ -5,42 +5,6 @@ with open("data/natures.json", "r") as file:
     natures = json.load(file)
 def calc3(pokemon):
     final = []
-    pokemon = {
-        "nature": "quirky",
-        "level": 78,
-        "stats":{
-            "hp": {
-                "base": 108,
-                "iv": 24,
-                "ev": 74
-            },
-            "attack": {
-                "base": 130,
-                "iv": 12,
-                "ev": 190
-            },
-            "defense": {
-                "base": 95,
-                "iv": 30,
-                "ev": 91
-            },
-            "special-attack": {
-                "base": 80,
-                "iv": 16,
-                "ev": 48
-            },
-            "special-defense": {
-                "base": 85,
-                "iv": 23,
-                "ev": 84
-            },
-            "speed": {
-                "base": 102,
-                "iv": 5,
-                "ev": 23
-            }
-        }
-    }
     alignment_stats = natures[pokemon["nature"]]
 
     for stat in pokemon["stats"]:
