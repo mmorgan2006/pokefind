@@ -1,15 +1,16 @@
 from math import floor
 import json
+from textwrap import indent
 statnames = ["hp", "attack", "defense", "spattack", "spdefense", "speed"]
 with open("data/natures.json", "r") as file:
     natures = json.load(file)
 def calc3(pokemon):
-    final = []
+    final = {}
     alignment_stats = natures[pokemon["nature"]]
 
     for stat in pokemon["stats"]:
         if stat == "hp":
-            final.append(
+            final[stat] = (
                 floor(
                     (2 * pokemon["stats"][stat]["base"] + pokemon["stats"][stat]["iv"] + floor(pokemon["stats"][stat]["ev"] / 4))
                     * pokemon["level"]
@@ -24,7 +25,7 @@ def calc3(pokemon):
                 alignment += .1
             if alignment_stats[1] == stat:
                 alignment -= .1
-            final.append(
+            final[stat] = (
                     floor(
                         (
                             floor(
