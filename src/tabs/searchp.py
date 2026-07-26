@@ -101,12 +101,14 @@ class SearchTab(qt.QWidget):
         self.clear_moves.clicked.connect(self.ClearMoves)
         self.results_list.itemDoubleClicked.connect(self.ClickResult)
         self.moves.itemClicked.connect(self.ClickMove)
+
+
     def Search(self):
         game = self.game.currentText()
+        validpokemon = copy.deepcopy(ALL_POKEMON)
         if self.ability.text() in ABILITY_NAMES:
-            validpokemon = search.search_ability(self.ability.text(),ALL_POKEMON)
+            validpokemon = search.search_ability(self.ability.text(),validpokemon)
         else:
-            validpokemon = copy.deepcopy(ALL_POKEMON)
             self.ability.setText("")
         if len(self.moves_list) > 0:
             for m in self.moves_list:
@@ -146,8 +148,10 @@ class SearchTab(qt.QWidget):
         self.moves.clear()
         self.moves_list = []
     def ClickResult(self,item):
-        print(item.text())
+        tabs = self.parentWidget().parentWidget() #type: ignore
 
+        tabs.setCurrentIndex(1) #type: ignore
+        tabs.widget(1).load_pokemon(item.text()) #type: ignore
     def ClickMove(self, item):
         row = self.moves.row(item)
         self.moves.takeItem(row)

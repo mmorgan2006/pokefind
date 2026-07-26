@@ -1,7 +1,6 @@
 import PySide6.QtWidgets as qt
 from tabs.searchp import SearchTab
-from tabs.pokemon import PokemonTab
-from tabs.stats import StatCalculator
+from tabs.pokedex import PokedexTab
 
 class MainWindow(qt.QMainWindow):
     def __init__(self):
@@ -9,8 +8,7 @@ class MainWindow(qt.QMainWindow):
 
         tabs = qt.QTabWidget()
         tabs.addTab(SearchTab(), "Search")
-        tabs.addTab(PokemonTab(), "Pokémon")
-        tabs.addTab(StatCalculator(), "Stats")
+        tabs.addTab(PokedexTab(), "Pokédex")
 
         self.setCentralWidget(tabs)
         self.setWindowTitle("PokéFind")
