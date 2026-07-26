@@ -155,6 +155,7 @@ class Calc3(qt.QWidget):
             stat_name = utils.format_stat(stat)
             self.results_list.addItem(f"{stat_name}: {stats[stat]}")
 
+
 class CalcChamp(qt.QWidget):
     def __init__(self):
         super().__init__()
