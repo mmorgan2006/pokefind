@@ -42,7 +42,7 @@ def calc3(pokemon):
                         * alignment
                     )
                 )
-    print(final)
+    return final
 
 
 def calcchamp(pokemon):

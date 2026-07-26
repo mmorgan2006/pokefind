@@ -1,7 +1,7 @@
 from PySide6.QtCore import Qt
 import PySide6.QtWidgets as qt
 import statcalc
-import mathutils
+import utils
 natures = statcalc.natures
 class StatCalculator(qt.QWidget):
     def __init__(self):
@@ -21,17 +21,20 @@ class StatCalculator(qt.QWidget):
 class Calc3(qt.QWidget):
     def __init__(self):
         super().__init__()
-        fullLayout = qt.QHBoxLayout()
-        leftLayout = qt.QVBoxLayout()
+        fullLayout = qt.QVBoxLayout()
+        top = qt.QHBoxLayout()
+        bottom = qt.QVBoxLayout()
+
 
         #STATS
         row = 1
         statsgrid = qt.QGridLayout()
-        statsgrid.addWidget(qt.QLabel("Base"),0,1)
-        statsgrid.addWidget(qt.QLabel("IVs"),0,2)
-        statsgrid.addWidget(qt.QLabel("EVs"),0,3)
+        statsgrid.addWidget(qt.QLabel("Base"),0,1,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        statsgrid.addWidget(qt.QLabel("IVs"),0,2,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        statsgrid.addWidget(qt.QLabel("EVs"),0,3,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
         self.stats = {}
         for stat in ["hp","attack","defense","special-attack","special-defense","speed"]:
+            name = utils.format_stat(stat)
             stat_value = qt.QLineEdit()
             iv_value = qt.QLineEdit()
             ev_value = qt.QLineEdit()
@@ -41,17 +44,19 @@ class Calc3(qt.QWidget):
 
             self.stats[stat] = {"base": stat_value, "iv": iv_value, "ev": ev_value}
 
-            statsgrid.addWidget(qt.QLabel(stat),row,0)
+            statsgrid.addWidget(qt.QLabel(name),row,0,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
             statsgrid.addWidget(stat_value,row,1)
             statsgrid.addWidget(iv_value,row,2)
             statsgrid.addWidget(ev_value,row,3)
             row += 1
-        leftLayout.addLayout(statsgrid)
+        top.addLayout(statsgrid)
 
+
+        details = qt.QHBoxLayout()
         #LEVEL
         self.level_value = qt.QLineEdit()
         self.level_value.setPlaceholderText("Level")
-        leftLayout.addWidget(self.level_value)
+        details.addWidget(self.level_value)
 
         #NATURE
         self.nature_field = qt.QLineEdit()
@@ -59,42 +64,47 @@ class Calc3(qt.QWidget):
         self.nature_completer = qt.QCompleter(list(dict.keys(natures)))
         self.nature_completer.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.nature_field.setCompleter(self.nature_completer)
-        leftLayout.addWidget(self.nature_field)
+        details.addWidget(self.nature_field)
 
         naturesgrid = qt.QGridLayout()
-        naturesgrid.addWidget(qt.QLabel("-Attack"),0,1)
-        naturesgrid.addWidget(qt.QLabel("-Defense"),0,2)
-        naturesgrid.addWidget(qt.QLabel("-Sp. Atk"),0,3)
-        naturesgrid.addWidget(qt.QLabel("-Sp. Def"),0,4)
-        naturesgrid.addWidget(qt.QLabel("-Speed"),0,5)
+        naturesgrid.addWidget(qt.QLabel("-Attack"),0,1,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        naturesgrid.addWidget(qt.QLabel("-Defense"),0,2,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        naturesgrid.addWidget(qt.QLabel("-Sp. Atk"),0,3,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        naturesgrid.addWidget(qt.QLabel("-Sp. Def"),0,4,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        naturesgrid.addWidget(qt.QLabel("-Speed"),0,5,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
 
-        naturesgrid.addWidget(qt.QLabel("+Attack"),1,0)
-        naturesgrid.addWidget(qt.QLabel("+Defense"),2,0)
-        naturesgrid.addWidget(qt.QLabel("+Sp. Atk"),3,0)
-        naturesgrid.addWidget(qt.QLabel("+Sp. Def"),4,0)
-        naturesgrid.addWidget(qt.QLabel("+Speed"),5,0)
+        naturesgrid.addWidget(qt.QLabel("+Attack"),1,0,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
+        naturesgrid.addWidget(qt.QLabel("+Defense"),2,0,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
+        naturesgrid.addWidget(qt.QLabel("+Sp. Atk"),3,0,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
+        naturesgrid.addWidget(qt.QLabel("+Sp. Def"),4,0,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
+        naturesgrid.addWidget(qt.QLabel("+Speed"),5,0,alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
 
         statnames = ["attack","defense","special-attack","special-defense","speed"]
         for i in natures:
             row = statnames.index(natures[i][0]) + 1
             column = statnames.index(natures[i][1]) + 1
             naturebutton = qt.QPushButton(i.title())
-            naturebutton.clicked.connect(lambda checked=False, name=i: self.change_nature(name))
+            naturebutton.clicked.connect(lambda checked=False, name=i: self.nature_field.setText(name))
             naturesgrid.addWidget(naturebutton,row,column)
+        bottom.addLayout(naturesgrid)
 
-
-        leftLayout.addLayout(naturesgrid)
         #RESULTS
-        rightlayout = qt.QVBoxLayout()
-        rightlayout.addWidget(qt.QLabel("Results"))
+        results = qt.QVBoxLayout()
+        text = qt.QLabel("Results")
+        text.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        results.addWidget(text)
         self.results_list = qt.QListWidget()
-        rightlayout.addWidget(self.results_list)
+        self.results_list.setFixedWidth(100)
+        results.addWidget(self.results_list)
+        top.addLayout(results)
 
         self.calculate_button = qt.QPushButton("Calculate")
-        leftLayout.addWidget(self.calculate_button)
-        #leftLayout.addStretch()
-        fullLayout.addLayout(leftLayout)
+        details.addWidget(self.calculate_button)
 
+        bottom.addLayout(details)
+        #leftLayout.addStretch()
+        fullLayout.addLayout(top)
+        fullLayout.addLayout(bottom)
 
         #fullLayout.addStretch()
         self.setLayout(fullLayout)
@@ -132,16 +142,18 @@ class Calc3(qt.QWidget):
                     value = max(value, 1)
                     self.stats[stat][i].setText(str(value))
                 if i == "iv":
-                    value = mathutils.clamp(value,0,31)
+                    value = utils.clamp(value,0,31)
                     self.stats[stat][i].setText(str(value))
                 if i == "ev":
-                    value = mathutils.clamp(value,0,252)
+                    value = utils.clamp(value,0,252)
                     self.stats[stat][i].setText(str(value))
                 else:
                     pokemon["stats"][stat][i] = value
         stats = statcalc.calc3(pokemon)
-    def change_nature(self, nature):
-        self.nature_field.setText(nature.lower())
+        self.results_list.clear()
+        for stat in stats:
+            stat_name = utils.format_stat(stat)
+            self.results_list.addItem(f"{stat_name}: {stats[stat]}")
 
 class CalcChamp(qt.QWidget):
     def __init__(self):
