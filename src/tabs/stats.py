@@ -1,6 +1,7 @@
 from PySide6.QtCore import Qt
 import PySide6.QtWidgets as qt
 import statcalc
+import mathutils
 natures = statcalc.natures
 class StatCalculator(qt.QWidget):
     def __init__(self):
@@ -23,7 +24,7 @@ class Calc3(qt.QWidget):
         fullLayout = qt.QHBoxLayout()
         leftLayout = qt.QVBoxLayout()
 
-
+        #STATS
         row = 1
         statsgrid = qt.QGridLayout()
         statsgrid.addWidget(qt.QLabel("Base"),0,1)
@@ -46,10 +47,13 @@ class Calc3(qt.QWidget):
             statsgrid.addWidget(ev_value,row,3)
             row += 1
         leftLayout.addLayout(statsgrid)
+
+        #LEVEL
         self.level_value = qt.QLineEdit()
         self.level_value.setPlaceholderText("Level")
         leftLayout.addWidget(self.level_value)
 
+        #NATURE
         self.nature_field = qt.QLineEdit()
         self.nature_field.setPlaceholderText("Nature")
         self.nature_completer = qt.QCompleter(list(dict.keys(natures)))
@@ -57,19 +61,42 @@ class Calc3(qt.QWidget):
         self.nature_field.setCompleter(self.nature_completer)
         leftLayout.addWidget(self.nature_field)
 
+        naturesgrid = qt.QGridLayout()
+        naturesgrid.addWidget(qt.QLabel("-Attack"),0,1)
+        naturesgrid.addWidget(qt.QLabel("-Defense"),0,2)
+        naturesgrid.addWidget(qt.QLabel("-Sp. Atk"),0,3)
+        naturesgrid.addWidget(qt.QLabel("-Sp. Def"),0,4)
+        naturesgrid.addWidget(qt.QLabel("-Speed"),0,5)
+
+        naturesgrid.addWidget(qt.QLabel("+Attack"),1,0)
+        naturesgrid.addWidget(qt.QLabel("+Defense"),2,0)
+        naturesgrid.addWidget(qt.QLabel("+Sp. Atk"),3,0)
+        naturesgrid.addWidget(qt.QLabel("+Sp. Def"),4,0)
+        naturesgrid.addWidget(qt.QLabel("+Speed"),5,0)
+
+        statnames = ["attack","defense","special-attack","special-defense","speed"]
+        for i in natures:
+            row = statnames.index(natures[i][0]) + 1
+            column = statnames.index(natures[i][1]) + 1
+            naturebutton = qt.QPushButton(i.title())
+            naturebutton.clicked.connect(lambda checked=False, name=i: self.change_nature(name))
+            naturesgrid.addWidget(naturebutton,row,column)
+
+
+        leftLayout.addLayout(naturesgrid)
+        #RESULTS
         rightlayout = qt.QVBoxLayout()
         rightlayout.addWidget(qt.QLabel("Results"))
         self.results_list = qt.QListWidget()
-        self.results_list.setFixedWidth(200)
         rightlayout.addWidget(self.results_list)
 
         self.calculate_button = qt.QPushButton("Calculate")
         leftLayout.addWidget(self.calculate_button)
-        leftLayout.addStretch()
+        #leftLayout.addStretch()
         fullLayout.addLayout(leftLayout)
 
 
-        fullLayout.addStretch()
+        #fullLayout.addStretch()
         self.setLayout(fullLayout)
         self.calculate_button.clicked.connect(self.Calculate)
 
@@ -81,10 +108,17 @@ class Calc3(qt.QWidget):
         except Exception:
             self.level_value.setText("50")
             level = 50
-        if self.nature_field.text().lower() in list(dict.keys(natures)):
+        if self.nature_field.text() in list(dict.keys(natures)):
             nature = self.nature_field.text().lower()
         else:
             nature = "serious"
+            self.nature_field.setText("")
+
+
+        if level < 1:
+            level = 1
+            self.level_value.setText("1")
+
         pokemon = {"level": level, "nature": nature,"stats": {}}
         for stat in self.stats:
             for i in self.stats[stat]:
@@ -92,13 +126,22 @@ class Calc3(qt.QWidget):
                     pokemon["stats"][stat] = {"base": 0,"iv": 0,"ev": 0}
                 try:
                     value = int(self.stats[stat][i].text())
-                    if value < 1:
-                        pokemon["stats"][stat][i] = 0
-                    else:
-                        pokemon["stats"][stat][i] = value
                 except Exception:
-                    continue
+                    value = 0
+                if i == "base":
+                    value = max(value, 1)
+                    self.stats[stat][i].setText(str(value))
+                if i == "iv":
+                    value = mathutils.clamp(value,0,31)
+                    self.stats[stat][i].setText(str(value))
+                if i == "ev":
+                    value = mathutils.clamp(value,0,252)
+                    self.stats[stat][i].setText(str(value))
+                else:
+                    pokemon["stats"][stat][i] = value
         stats = statcalc.calc3(pokemon)
+    def change_nature(self, nature):
+        self.nature_field.setText(nature.lower())
 
 class CalcChamp(qt.QWidget):
     def __init__(self):
